@@ -26,9 +26,8 @@ class MyClass extends Component {
                 configureScene={route => {
                     if (route.name === 'AUTHENTICATION') {
                         return NavigationExperimental.Navigator.SceneConfigs.FloatFromRight;
-                    } else {
-                        return NavigationExperimental.Navigator.SceneConfigs.FloatFromLeft;
                     }
+                    return NavigationExperimental.Navigator.SceneConfigs.FloatFromLeft;
                 }}
             />
         );
