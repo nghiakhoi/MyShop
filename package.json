@@ -11,6 +11,7 @@
     "react-native": "0.44.0",
     "react-native-deprecated-custom-components": "^0.1.0",
     "react-native-drawer": "^2.3.0",
+    "react-native-swiper": "^1.5.4",
     "react-native-tab-navigator": "^0.3.3"
   },
   "devDependencies": {
