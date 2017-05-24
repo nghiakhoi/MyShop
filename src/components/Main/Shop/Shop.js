@@ -1,14 +1,14 @@
 //import liraries
 import React, { Component } from 'react';
 import TabNavigator from 'react-native-tab-navigator';
-import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
+
+import Header from './Header';
 
 import Home from './Home/Home';
 import Contact from './Contact/Contact';
 import Cart from './Cart/Cart';
 import Search from './Search/Search';
-
-const { height } = Dimensions.get('window');
 
 class Shop extends Component {
 
@@ -25,11 +25,7 @@ class Shop extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <View style={{ height: height / 8 }}>
-                    <TouchableOpacity onPress={this.openMenu.bind(this)}>
-                        <Text>Open Menu</Text>
-                    </TouchableOpacity>
-                </View>
+                <Header onOpen={this.openMenu.bind(this)} />
                 <TabNavigator>
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'home'}
