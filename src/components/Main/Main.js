@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+//import { View, Text, TouchableOpacity } from 'react-native';
 import Drawer from 'react-native-drawer';
 
 import Menu from './Menu';
