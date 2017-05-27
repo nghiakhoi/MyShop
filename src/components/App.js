@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import NavigationExperimental from 'react-native-deprecated-custom-components';
 
 import Authentication from './Authentication/Authentication';
