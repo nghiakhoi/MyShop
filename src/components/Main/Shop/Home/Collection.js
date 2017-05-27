@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         padding: 10,
         paddingTop: 0,
-        paddingBottom: height * 0.01
+        paddingBottom: height * 0.01,
+        elevation: 5
     },
     textStyle: {
         fontSize: 20,
