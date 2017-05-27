@@ -8,7 +8,7 @@ import profileIcon from '../../media/temp/profile.png';
 class Menu extends Component {
     constructor(props) {
         super(props);
-        this.state = { isLogedIn: true };
+        this.state = { isLogedIn: false };
     }
     goToAuthentication() {
         const { navigator } = this.props;
@@ -34,7 +34,7 @@ class Menu extends Component {
             username } = styles;
         const logOutJSX = (
             <View style={{ flex: 1 }}>
-                <TouchableOpacity style={btnStyle}>
+                <TouchableOpacity style={btnStyle} onPress={this.goToAuthentication.bind(this)}>
                     <Text style={btnText}>Sign In</Text>
                 </TouchableOpacity>
             </View>
@@ -43,17 +43,16 @@ class Menu extends Component {
             <View style={loginContainer}>
                 <Text style={username}>Hoàng Nghĩa Khởi</Text>
                 <View>
-                    <TouchableOpacity style={btnSignInStyle}>
+                    <TouchableOpacity style={btnSignInStyle} onPress={this.goToOrderHistory.bind(this)}>
                         <Text style={btnTextSignIn}>Order History</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={btnSignInStyle}>
+                    <TouchableOpacity style={btnSignInStyle} onPress={this.goToChangeInfo.bind(this)}>
                         <Text style={btnTextSignIn}>Change Info</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={btnSignInStyle}>
+                    <TouchableOpacity style={btnSignInStyle} >
                         <Text style={btnTextSignIn}>Sign Out</Text>
                     </TouchableOpacity>
                 </View>
-
                 <View />
             </View>
         );
@@ -92,7 +91,8 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: '#34b089',
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'Avenir'
     },
     btnSignInStyle: {
         height: 50,
