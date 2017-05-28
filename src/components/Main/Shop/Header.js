@@ -24,6 +24,7 @@ class Header extends Component {
                 <TextInput
                     style={textInput}
                     placeholder="Bạn muốn mua gì?"
+                    underlineColorAndroid="transparent"
                 />
             </View>
         );
@@ -44,7 +45,8 @@ const styles = StyleSheet.create({
     textInput: {
         height: height / 23,
         backgroundColor: '#fff',
-        paddingLeft: 10
+        paddingLeft: 10,
+        paddingVertical: 0
     },
     iconStyle: {
         width: 25,

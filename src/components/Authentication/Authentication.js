@@ -33,8 +33,8 @@ class Authentication extends Component {
             inputStyle, bigButton, buttonText } = styles;
         const signInJSX = (
             <View>
-                <TextInput style={inputStyle} placeholder="Enter your email" />
-                <TextInput style={inputStyle} placeholder="Enter your password" />
+                <TextInput style={inputStyle} placeholder="Enter your email" underlineColorAndroid="transparent" />
+                <TextInput style={inputStyle} placeholder="Enter your password" underlineColorAndroid="transparent" />
                 <TouchableOpacity style={bigButton}>
                     <Text style={buttonText}>SIGN IN NOW</Text>
                 </TouchableOpacity>
@@ -42,10 +42,10 @@ class Authentication extends Component {
         );
         const signUpJSX = (
             <View>
-                <TextInput style={inputStyle} placeholder="Enter your name" />
-                <TextInput style={inputStyle} placeholder="Enter your email" />
-                <TextInput style={inputStyle} placeholder="Enter your password" />
-                <TextInput style={inputStyle} placeholder="Re-enter your password" />
+                <TextInput style={inputStyle} placeholder="Enter your name" underlineColorAndroid="transparent" />
+                <TextInput style={inputStyle} placeholder="Enter your email" underlineColorAndroid="transparent" />
+                <TextInput style={inputStyle} placeholder="Enter your password" underlineColorAndroid="transparent" />
+                <TextInput style={inputStyle} placeholder="Re-enter your password" underlineColorAndroid="transparent" />
                 <TouchableOpacity style={bigButton}>
                     <Text style={buttonText}>SIGN UP NOW</Text>
                 </TouchableOpacity>
@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         marginBottom: 10,
         borderRadius: 25,
-        paddingLeft: 30
+        paddingLeft: 30,
+        paddingVertical: 0
     },
     bigButton: {
         height: 50,
