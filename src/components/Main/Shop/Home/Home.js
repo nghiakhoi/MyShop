@@ -20,12 +20,6 @@ class Home extends Component {
                         default: return <ProductDetail navigator={navigator} />;
                     }
                 }}
-                configureScene={route => {
-                    if (route.name === 'AUTHENTICATION') {
-                        return NavigationExperimental.Navigator.SceneConfigs.FloatFromRight;
-                    }
-                    return NavigationExperimental.Navigator.SceneConfigs.FloatFromLeft;
-                }}
             />
         );
     }

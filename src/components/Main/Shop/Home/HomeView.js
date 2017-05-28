@@ -7,7 +7,7 @@ import Category from './Category';
 import TopProduct from './TopProduct';
 
 // create a component
-class Home extends Component {
+class HomeView extends Component {
     render() {
         return (
             <ScrollView style={{ backgroundColor: '#dbdbd8', flex: 1 }}>
@@ -18,4 +18,4 @@ class Home extends Component {
         );
     }
 }
-export default Home;
+export default HomeView;
