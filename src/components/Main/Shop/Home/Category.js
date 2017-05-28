@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 
 import littleIcon from '../../../../media/temp/little.jpg';
@@ -9,6 +9,10 @@ import partyIcon from '../../../../media/temp/party.jpg';
 const { height, width } = Dimensions.get('window');
 
 class Category extends Component {
+    goToListProduct() {
+        const { navigator } = this.props;
+        navigator.push({ name: 'LIST_PRODUCT' });
+    }
     render() {
         const { wrapper, textStyle, imageStyle, cateTitle } = styles;
         return (
@@ -18,15 +22,21 @@ class Category extends Component {
                 </View>
                 <View style={{ flex: 4 }}>
                     <Swiper showsPagination width={imageWidth} height={imageHeight}>
-                        <Image source={littleIcon} style={imageStyle}>
-                            <Text style={cateTitle}>Razer BWU</Text>
-                        </Image>
-                        <Image source={maxiIcon} style={imageStyle}>
-                            <Text style={cateTitle}>Corsair K95</Text>
-                        </Image>
-                        <Image source={partyIcon} style={imageStyle}>
-                            <Text style={cateTitle}>Fuhlen SM890</Text>
-                        </Image>
+                        <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
+                            <Image source={littleIcon} style={imageStyle}>
+                                <Text style={cateTitle}>Razer BWU</Text>
+                            </Image>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
+                            <Image source={maxiIcon} style={imageStyle}>
+                                <Text style={cateTitle}>Corsair K95</Text>
+                            </Image>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
+                            <Image source={partyIcon} style={imageStyle}>
+                                <Text style={cateTitle}>Fuhlen SM890</Text>
+                            </Image>
+                        </TouchableOpacity>
                     </Swiper>
                 </View>
             </View >
