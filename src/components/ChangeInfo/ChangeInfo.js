@@ -7,10 +7,10 @@ import backSpecial from '../../media/appIcon/backs.png';
 export default class ChangeInfo extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            txtName: 'Nguyen Van Pho', 
-            txtAddress: '92 Le Thi Rieng / Ben Thanh', 
-            txtPhone: '01694472176' 
+        this.state = {
+            txtName: 'Nguyen Van Pho',
+            txtAddress: '92 Le Thi Rieng / Ben Thanh',
+            txtPhone: '01694472176'
         };
     }
     goBackToMain() {

@@ -16,8 +16,8 @@ class Contact extends Component {
         return (
             <View style={wrapper}>
                 <View style={mapContainer}>
-                    <Image 
-                        style={{ flex: 1, alignSelf: 'stretch', width: undefined }} source={map} 
+                    <Image
+                        style={{ flex: 1, alignSelf: 'stretch', width: undefined }} source={map}
                     />
                 </View>
                 <View style={infoContainer}>
