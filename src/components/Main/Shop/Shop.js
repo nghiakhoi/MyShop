@@ -53,6 +53,10 @@ class Shop extends Component {
         }, () => saveCart(this.state.cartArray));
     }
 
+    addQuantity() {
+
+    }
+
     openMenu() {
         const { open } = this.props;
         open();
