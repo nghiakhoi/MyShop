@@ -3,6 +3,7 @@ import {
     View, Text, TouchableOpacity, ListView,
     Dimensions, StyleSheet, Image
 } from 'react-native';
+import global from '../../../global';
 
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -11,6 +12,15 @@ function toTitleCase(str) {
 const url = 'http://192.168.1.87:3000/images/';
 
 class CartView extends Component {
+    incrQuantity(id) {
+        global.incrQuantity(id);
+    }
+    decrQuantity(id) {
+        global.decrQuantity(id);
+    }
+    removeProduct(id) {
+        global.removeProduct(id);
+    }
     gotoDetail() {
         const { navigator } = this.props;
         navigator.push({ name: 'PRODUCT_DETAIL' });
@@ -34,7 +44,7 @@ class CartView extends Component {
                             <View style={[mainRight]}>
                                 <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
                                     <Text style={txtName}>{toTitleCase(cartItem.product.name)}</Text>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this.removeProduct(cartItem.product.id)}>
                                         <Text style={{ fontFamily: 'Avenir', color: '#969696' }}>X</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -43,11 +53,11 @@ class CartView extends Component {
                                 </View>
                                 <View style={productController}>
                                     <View style={numberOfProduct}>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.incrQuantity(cartItem.product.id)}>
                                             <Text>+</Text>
                                         </TouchableOpacity>
                                         <Text>{cartItem.quantity}</Text>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.decrQuantity(cartItem.product.id)}>
                                             <Text>-</Text>
                                         </TouchableOpacity>
                                     </View>
