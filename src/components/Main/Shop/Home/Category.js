@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 
-import littleIcon from '../../../../media/temp/little.jpg';
-import maxiIcon from '../../../../media/temp/maxi.jpg';
-import partyIcon from '../../../../media/temp/party.jpg';
-
 const { height, width } = Dimensions.get('window');
-const url = 'http://localhost:3000/images/type/';
+const url = 'http://192.168.1.87:3000/images/type/';
 
 class Category extends Component {
     goToListProduct() {
