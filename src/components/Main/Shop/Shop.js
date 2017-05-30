@@ -11,6 +11,10 @@ import Cart from './Cart/Cart';
 import Search from './Search/Search';
 import global from '../../global';
 
+import initData from '../../../api/initData';
+import saveCart from '../../../api/saveCart';
+import getCart from '../../../api/getCart';
+
 import homeIconS from '../../../media/appIcon/home.png';
 import homeIcon from '../../../media/appIcon/home0.png';
 import cartIconS from '../../../media/appIcon/cart.png';
@@ -34,18 +38,19 @@ class Shop extends Component {
     }
 
     componentDidMount() {
-        fetch('http://192.168.1.87:3000')
-            .then(res => res.json())
+        initData()
             .then(resJSON => {
                 const { type, product } = resJSON;
                 this.setState({ types: type, topProducts: product });
             });
+        getCart()
+            .then(cartArray => this.setState({ cartArray }));
     }
 
     addProductToCart(product) {
         this.setState({
             cartArray: this.state.cartArray.concat({ product, quantity: 1 })
-        });
+        }, () => saveCart(this.state.cartArray));
     }
 
     openMenu() {
