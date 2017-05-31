@@ -5,6 +5,7 @@ import {
     Image, StyleSheet, TextInput
 } from 'react-native';
 
+import register from '../../api/register';
 import icLogo from '../../media/appIcon/ic_logo.png';
 import icBack from '../../media/appIcon/back_white.png';
 
@@ -13,6 +14,10 @@ class Authentication extends Component {
     constructor(props) {
         super(props);
         this.state = { isSignIn: true };
+    }
+    componentDidMount() {
+        register('nghiakhoia', 'nghiakhoi', '123')
+            .then(res => console.log(res));
     }
     signIn() {
         this.setState({ isSignIn: true });
