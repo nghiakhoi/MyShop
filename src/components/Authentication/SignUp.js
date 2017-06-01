@@ -14,22 +14,13 @@ class SignUp extends Component {
             rePassword: '',
         };
     }
-    registerUser() {
-        const { name, email, password } = this.state;
-        register(email, name, password)
-            .then(res => {
-                if (res.kq === 'THANH_CONG') {
-                    return this.onSuccess();
-                }
-                this.onFail();
-            });
-    }
+    
     onSuccess() {
         Alert.alert(
             'Thông báo',
             'Đăng ký thành công',
             [
-                { text: 'OK', onPress: () => this.setState({ email: '' }) }
+                { text: 'OK', onPress: () => this.props.gotoSignIn() }
             ],
             { cancelable: false }
         );
@@ -44,6 +35,17 @@ class SignUp extends Component {
             ],
             { cancelable: false }
         );
+    }
+
+    registerUser() {
+        const { name, email, password } = this.state;
+        register(email, name, password)
+            .then(res => {
+                if (res.kq === 'THANH_CONG') {
+                    return this.onSuccess();
+                }
+                this.onFail();
+            });
     }
 
     render() {

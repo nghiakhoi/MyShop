@@ -2,13 +2,18 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
+import global from '../global';
 import profileIcon from '../../media/temp/profile.png';
 
 // create a component
 class Menu extends Component {
     constructor(props) {
         super(props);
-        this.state = { isLogedIn: false };
+        this.state = { user: null };
+        global.onSignIn = this.onSignIn.bind(this);
+    }
+    onSignIn(user) {
+        this.setState({ user });
     }
     goToAuthentication() {
         const { navigator } = this.props;
@@ -32,6 +37,7 @@ class Menu extends Component {
         const { container, profile, btnStyle, btnText,
             btnSignInStyle, btnTextSignIn, loginContainer,
             username } = styles;
+        const { user } = this.state;
         const logOutJSX = (
             <View style={{ flex: 1 }}>
                 <TouchableOpacity style={btnStyle} onPress={this.goToAuthentication.bind(this)}>
@@ -41,7 +47,7 @@ class Menu extends Component {
         );
         const logInJSX = (
             <View style={loginContainer}>
-                <Text style={username}>Hoàng Nghĩa Khởi</Text>
+                <Text style={username}>{user ? user.name : ''}</Text>
                 <View>
                     <TouchableOpacity style={btnSignInStyle} onPress={this.goToOrderHistory.bind(this)}>
                         <Text style={btnTextSignIn}>Order History</Text>
@@ -56,7 +62,7 @@ class Menu extends Component {
                 <View />
             </View>
         );
-        const mainJSX = this.state.isLogedIn ? logInJSX : logOutJSX;
+        const mainJSX = this.state.user ? logInJSX : logOutJSX;
         return (
             <View style={container}>
                 <Image source={profileIcon} style={profile} />
