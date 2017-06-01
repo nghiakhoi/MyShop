@@ -8,6 +8,7 @@ import Shop from './Shop/Shop';
 
 import checkLogin from '../../api/checkLogin';
 import getToken from '../../api/getToken';
+import refreshToken from '../../api/refreshToken';
 import global from '../global';
 
 class Main extends Component {
