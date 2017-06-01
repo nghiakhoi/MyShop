@@ -29,7 +29,7 @@ class Menu extends Component {
     goToChangeInfo() {
         const { navigator } = this.props;
         // tên biến trùng với tên thuộc tính Destructuring Assignment ES6
-        navigator.push({ name: 'CHANGE_INFO' });
+        navigator.push({ name: 'CHANGE_INFO', user: this.state.user });
     }
 
     goToOrderHistory() {

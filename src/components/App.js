@@ -18,7 +18,7 @@ class MyClass extends Component {
                 renderScene={(route, navigator) => {
                     switch (route.name) {
                         case 'MAIN': return <Main navigator={navigator} />;
-                        case 'CHANGE_INFO': return <ChangeInfo navigator={navigator} />;
+                        case 'CHANGE_INFO': return <ChangeInfo navigator={navigator} user={route.user} />;
                         case 'AUTHENTICATION': return <Authentication navigator={navigator} />;
                         default: return <OrderHistory navigator={navigator} />;
                     }
