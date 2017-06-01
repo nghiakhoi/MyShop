@@ -4,6 +4,8 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 import global from '../global';
 import signIn from '../../api/signIn';
 
+import saveToken from '../../api/saveToken';
+
 // create a component
 class SignIn extends Component {
     constructor(props) {
@@ -20,6 +22,7 @@ class SignIn extends Component {
             .then(res => {
                 global.onSignIn(res.user);
                 this.props.goBackToMain();
+                saveToken(res.token);
             })
             .catch(err => console.log(err));
     }

@@ -6,24 +6,17 @@ import Drawer from 'react-native-drawer';
 import Menu from './Menu';
 import Shop from './Shop/Shop';
 
+import checkLogin from '../../api/checkLogin';
+import getToken from '../../api/getToken';
+import global from '../global';
+
 class Main extends Component {
 
-    goToAuthentication() {
-        const { navigator } = this.props;
-        // tên biến trùng với tên thuộc tính Destructuring Assignment ES6
-        navigator.push({ name: 'AUTHENTICATION' });
-    }
-
-    goToChangeInfo() {
-        const { navigator } = this.props;
-        // tên biến trùng với tên thuộc tính Destructuring Assignment ES6
-        navigator.push({ name: 'CHANGE_INFO' });
-    }
-
-    goToOrderHistory() {
-        const { navigator } = this.props;
-        // tên biến trùng với tên thuộc tính Destructuring Assignment ES6
-        navigator.push({ name: 'ORDERHISTORY' });
+    componentDidMount() {
+        getToken()
+            .then(token => checkLogin(token))
+            .then(res => global.onSignIn(res.user))
+            .catch(err => console.log(err));
     }
 
     closeControlPanel = () => {
