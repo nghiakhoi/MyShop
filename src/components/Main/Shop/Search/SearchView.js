@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, ListView, View, Image, Dimensions } from 'react-native';
+import {
+    StyleSheet, Text, TouchableOpacity,
+    ListView, View, Image,
+    Dimensions
+} from 'react-native';
 
-import sp1 from '../../../../media/temp/sp3.jpeg';
 import global from '../../../global';
 
 const url = 'http://192.168.1.87:3000/images/product/';
@@ -24,9 +27,9 @@ class SearchView extends Component {
         this.setState({ listProduct: this.state.listProduct.cloneWithRows(arrProduct) });
     }
 
-    gotoDetail() {
+    gotoDetail(product) {
         const { navigator } = this.props;
-        navigator.push({ name: 'PRODUCT_DETAIL' });
+        navigator.push({ name: 'PRODUCT_DETAIL', product });
     }
     render() {
         const {
@@ -57,7 +60,7 @@ class SearchView extends Component {
                                         }}
                                     />
                                 </View>
-                                <TouchableOpacity style={showDetailContainer}>
+                                <TouchableOpacity style={showDetailContainer} onPress={() => this.gotoDetail(productItem)}>
                                     <Text style={txtShowDetail}>SHOW DETAILS</Text>
                                 </TouchableOpacity>
                             </View>

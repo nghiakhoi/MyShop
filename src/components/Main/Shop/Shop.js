@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
 import TabNavigator from 'react-native-tab-navigator';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Alert } from 'react-native';
 
 import Header from './Header';
 
@@ -23,6 +23,10 @@ import searchIconS from '../../../media/appIcon/search.png';
 import searchIcon from '../../../media/appIcon/search0.png';
 import contactIconS from '../../../media/appIcon/contact.png';
 import contactIcon from '../../../media/appIcon/contact0.png';
+
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
 
 class Shop extends Component {
 
@@ -56,9 +60,29 @@ class Shop extends Component {
     }
 
     addProductToCart(product) {
-        this.setState({
-            cartArray: this.state.cartArray.concat({ product, quantity: 1 })
-        }, () => saveCart(this.state.cartArray));
+        const isExist = this.state.cartArray.some(e => e.product.id === product.id);
+        if (isExist) {
+            Alert.alert(
+                'Thông báo',
+                `Sản phẩm "${toTitleCase(product.name)}"\n ĐÃ CÓ trong giỏ hàng`,
+                [
+                    { text: 'OK' }
+                ],
+                { cancelable: false }
+            );
+        } else {
+            Alert.alert(
+                'Thông báo',
+                `Sản phẩm "${toTitleCase(product.name)}"\n ĐÃ THÊM vào giỏ hàng`,
+                [
+                    { text: 'OK' }
+                ],
+                { cancelable: false }
+            );
+            this.setState({
+                cartArray: this.state.cartArray.concat({ product, quantity: 1 })
+            }, () => saveCart(this.state.cartArray));
+        }
     }
 
     incrQuantity(productId) {
