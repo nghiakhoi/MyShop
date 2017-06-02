@@ -2,24 +2,47 @@ import React, { Component } from 'react';
 import {
     View, Text, Image,
     StyleSheet, TouchableOpacity,
-    ScrollView
+    ListView, RefreshControl
 } from 'react-native';
-
+import getListProduct from '../../../../api/getListProduct';
 import backList from '../../../../media/appIcon/backList.png';
-import sp1 from '../../../../media/temp/sp1.jpeg';
-import sp2 from '../../../../media/temp/sp2.jpeg';
-import sp3 from '../../../../media/temp/sp3.jpeg';
-import sp4 from '../../../../media/temp/sp4.jpeg';
+
+const url = 'http://192.168.1.87:3000/images/product/';
+
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
 
 // create a component
 class ListProduct extends Component {
+    constructor(props) {
+        super(props);
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        this.state = {
+            listProduct: ds,
+            refreshing: false,
+            page: 1
+        };
+        this.arr = [];
+    }
+
+    componentDidMount() {
+        const idType = this.props.category.id;
+        getListProduct(idType, 1)
+            .then(arrProduct => {
+                this.arr = arrProduct;
+                this.setState({ listProduct: this.state.listProduct.cloneWithRows(this.arr) });
+            })
+            .catch(err => console.log(err));
+    }
+
     goBack() {
         const { navigator } = this.props;
         navigator.pop();
     }
-    goToDetail() {
+    goToDetail(product) {
         const { navigator } = this.props;
-        navigator.push({ name: 'PRODUCT_DETAIL' });
+        navigator.push({ name: 'PRODUCT_DETAIL', product });
     }
     render() {
         const { container, header, wrapper,
@@ -27,77 +50,57 @@ class ListProduct extends Component {
             productContainer, productImage, productInfo,
             lastRowInfo, txtName, txtPrice, txtMaterial, txtColor,
             txtShowDetail } = styles;
+        const { category } = this.props;
         return (
             <View style={container}>
-                <ScrollView style={wrapper}>
+                <View style={wrapper}>
                     <View style={header}>
                         <TouchableOpacity onPress={this.goBack.bind(this)}>
                             <Image source={backList} style={backStyle} />
                         </TouchableOpacity>
-                        <Text style={titleStyle}>Party Dress</Text>
+                        <Text style={titleStyle}>{category.name}</Text>
                         <View style={{ width: 30 }} />
                     </View>
-                    <View style={productContainer}>
-                        <Image source={sp1} style={productImage} />
-                        <View style={productInfo}>
-                            <Text style={txtName}>Lace Sleeve Si</Text>
-                            <Text style={txtPrice}>117$</Text>
-                            <Text style={txtMaterial}>Material Silk</Text>
-                            <View style={lastRowInfo}>
-                                <Text style={txtColor}>Color Royal Blue</Text>
-                                <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
-                                <TouchableOpacity>
-                                    <Text style={txtShowDetail}>Show Detail</Text>
-                                </TouchableOpacity>
+                    <ListView
+                        removeClippedSubviews={false}
+                        dataSource={this.state.listProduct}
+                        renderRow={product => (
+                            <View style={productContainer}>
+                                <Image source={{ uri: `${url}${product.images[0]}` }} style={productImage} />
+                                <View style={productInfo}>
+                                    <Text style={txtName}>{toTitleCase(product.name)}</Text>
+                                    <Text style={txtPrice}>{product.price}$</Text>
+                                    <Text style={txtMaterial}>{toTitleCase(product.material)}</Text>
+                                    <View style={lastRowInfo}>
+                                        <Text style={txtColor}>{product.color}</Text>
+                                        <View style={{ backgroundColor: product.color.toLowerCase(), height: 16, width: 16, borderRadius: 8 }} />
+                                        <TouchableOpacity onPress={() => this.goToDetail(product)}>
+                                            <Text style={txtShowDetail}>Show Detail</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
                             </View>
-                        </View>
-                    </View>
-                    <View style={productContainer}>
-                        <Image source={sp1} style={productImage} />
-                        <View style={productInfo}>
-                            <Text style={txtName}>Lace Sleeve Si</Text>
-                            <Text style={txtPrice}>117$</Text>
-                            <Text style={txtMaterial}>Material Silk</Text>
-                            <View style={lastRowInfo}>
-                                <Text style={txtColor}>Color Royal Blue</Text>
-                                <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
-                                <TouchableOpacity>
-                                    <Text style={txtShowDetail}>Show Detail</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={productContainer}>
-                        <Image source={sp1} style={productImage} />
-                        <View style={productInfo}>
-                            <Text style={txtName}>Lace Sleeve Si</Text>
-                            <Text style={txtPrice}>117$</Text>
-                            <Text style={txtMaterial}>Material Silk</Text>
-                            <View style={lastRowInfo}>
-                                <Text style={txtColor}>Color Royal Blue</Text>
-                                <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
-                                <TouchableOpacity>
-                                    <Text style={txtShowDetail}>Show Detail</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={productContainer}>
-                        <Image source={sp1} style={productImage} />
-                        <View style={productInfo}>
-                            <Text style={txtName}>Lace Sleeve Si</Text>
-                            <Text style={txtPrice}>117$</Text>
-                            <Text style={txtMaterial}>Material Silk</Text>
-                            <View style={lastRowInfo}>
-                                <Text style={txtColor}>Color Royal Blue</Text>
-                                <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
-                                <TouchableOpacity>
-                                    <Text style={txtShowDetail}>Show Detail</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </ScrollView>
+                        )}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={() => {
+                                    this.setState({ refreshing: true });
+                                    const newPage = this.state.page + 1;
+                                    const idType = this.props.category.id;
+                                    getListProduct(idType, newPage)
+                                        .then(arrProduct => {
+                                            this.arr = arrProduct.concat(this.arr);
+                                            this.setState({
+                                                listProduct: this.state.listProduct.cloneWithRows(this.arr),
+                                                refreshing: false
+                                            });
+                                        });
+                                }}
+                            />
+                        }
+                    />
+                </View>
             </View>
         );
     }
@@ -183,3 +186,28 @@ const styles = StyleSheet.create({
 
 //make this component available to the app
 export default ListProduct;
+
+/*<ScrollView style={wrapper}>
+                    <View style={header}>
+                        <TouchableOpacity onPress={this.goBack.bind(this)}>
+                            <Image source={backList} style={backStyle} />
+                        </TouchableOpacity>
+                        <Text style={titleStyle}>{category.name}</Text>
+                        <View style={{ width: 30 }} />
+                    </View>
+                    <View style={productContainer}>
+                        <Image source={sp1} style={productImage} />
+                        <View style={productInfo}>
+                            <Text style={txtName}>Lace Sleeve Si</Text>
+                            <Text style={txtPrice}>117$</Text>
+                            <Text style={txtMaterial}>Material Silk</Text>
+                            <View style={lastRowInfo}>
+                                <Text style={txtColor}>Color Royal Blue</Text>
+                                <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
+                                <TouchableOpacity>
+                                    <Text style={txtShowDetail}>Show Detail</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </ScrollView>*/

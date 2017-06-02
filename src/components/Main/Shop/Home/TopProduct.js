@@ -5,7 +5,7 @@ import {
     TouchableOpacity, ListView
 } from 'react-native';
 
-const url = 'http://192.168.1.87:3000/images/';
+const url = 'http://192.168.1.87:3000/images/product/';
 
 class TopProduct extends Component {
     goToDetail(product) {
