@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         elevation: 5,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        flex: 1
     },
     header: {
         flexDirection: 'row',
@@ -186,28 +187,3 @@ const styles = StyleSheet.create({
 
 //make this component available to the app
 export default ListProduct;
-
-/*<ScrollView style={wrapper}>
-                    <View style={header}>
-                        <TouchableOpacity onPress={this.goBack.bind(this)}>
-                            <Image source={backList} style={backStyle} />
-                        </TouchableOpacity>
-                        <Text style={titleStyle}>{category.name}</Text>
-                        <View style={{ width: 30 }} />
-                    </View>
-                    <View style={productContainer}>
-                        <Image source={sp1} style={productImage} />
-                        <View style={productInfo}>
-                            <Text style={txtName}>Lace Sleeve Si</Text>
-                            <Text style={txtPrice}>117$</Text>
-                            <Text style={txtMaterial}>Material Silk</Text>
-                            <View style={lastRowInfo}>
-                                <Text style={txtColor}>Color Royal Blue</Text>
-                                <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
-                                <TouchableOpacity>
-                                    <Text style={txtShowDetail}>Show Detail</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </ScrollView>*/

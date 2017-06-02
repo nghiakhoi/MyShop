@@ -101,7 +101,7 @@ class Shop extends Component {
         const { iconStyle } = styles;
         const { types, selectedTab, topProducts, cartArray } = this.state;
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: '#dfdfdf' }}>
                 <Header onOpen={this.openMenu.bind(this)} />
                 <TabNavigator>
                     <TabNavigator.Item

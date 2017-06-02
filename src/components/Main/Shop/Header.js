@@ -21,8 +21,9 @@ class Header extends Component {
     }
     onSearch() {
         const { txtSearch } = this.state;
+        this.setState({ txtSearch: '' });
         search(txtSearch)
-            .then(arrProduct => console.log(arrProduct))
+            .then(arrProduct => global.setSearchArray(arrProduct))
             .catch(err => console.log(err));
     }
     render() {
@@ -43,6 +44,7 @@ class Header extends Component {
                     onChangeText={text => this.setState({ txtSearch: text })}
                     onFocus={() => global.gotoSearch()}
                     onSubmitEditing={this.onSearch.bind(this)}
+                    value={this.state.txtSearch}
                 />
             </View>
         );
