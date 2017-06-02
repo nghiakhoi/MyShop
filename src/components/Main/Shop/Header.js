@@ -6,10 +6,25 @@ import {
 
 import icLogo from '../../../media/appIcon/ic_logo.png';
 import icMenu from '../../../media/appIcon/ic_menu.png';
+import search from '../../../api/searchProduct';
+
+import global from '../../global';
 
 const { height } = Dimensions.get('window');
 
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            txtSearch: ''
+        };
+    }
+    onSearch() {
+        const { txtSearch } = this.state;
+        search(txtSearch)
+            .then(arrProduct => console.log(arrProduct))
+            .catch(err => console.log(err));
+    }
     render() {
         const { wrapper, row1, textInput, iconStyle, titleStyle } = styles;
         return (
@@ -25,6 +40,9 @@ class Header extends Component {
                     style={textInput}
                     placeholder="Bạn muốn mua gì?"
                     underlineColorAndroid="transparent"
+                    onChangeText={text => this.setState({ txtSearch: text })}
+                    onFocus={() => global.gotoSearch()}
+                    onSubmitEditing={this.onSearch.bind(this)}
                 />
             </View>
         );
