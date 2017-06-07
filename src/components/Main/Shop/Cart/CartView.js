@@ -4,6 +4,8 @@ import {
     Dimensions, StyleSheet, Image
 } from 'react-native';
 import global from '../../../global';
+import sendOrder from '../../../../api/sendOrder';
+import getToken from '../../../../api/getToken';
 
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -24,6 +26,23 @@ class CartView extends Component {
     gotoDetail(product) {
         const { navigator } = this.props;
         navigator.push({ name: 'PRODUCT_DETAIL', product });
+    }
+    async onSendOrder() {
+        try {
+            const token = await getToken();
+            const arrayDetail = this.props.cartArray.map(e => ({
+                id: e.product.id,
+                quantity: e.quantity
+            }));
+            const kq = await sendOrder(token, arrayDetail);
+            if (kq) {
+                console.log(kq);
+            } else {
+                console.log('THEM_THAT_BAI', kq);
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
     render() {
         const { main, checkoutButton, checkoutTitle, wrapper,
@@ -70,7 +89,7 @@ class CartView extends Component {
                         </View>
                     )}
                 />
-                <TouchableOpacity style={checkoutButton}>
+                <TouchableOpacity style={checkoutButton} onPress={this.onSendOrder.bind(this)} >
                     <Text style={checkoutTitle}>TOTAL {total}$ CHECKOUT NOW</Text>
                 </TouchableOpacity>
             </View>
