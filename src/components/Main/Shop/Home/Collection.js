@@ -6,6 +6,10 @@ import bannerImage from '../../../../media/temp/banner.jpg';
 const { height, width } = Dimensions.get('window');
 
 class Collection extends Component {
+    gotoListProduct() {
+        const { navigator } = this.props;
+        navigator.push({ name: 'LIST_PRODUCT', category: { name: 'Hot Gaming Gear', id: 'collection' } });
+    }
     render() {
         const { wrapper, textStyle, imageStyle } = styles;
         return (
@@ -13,7 +17,7 @@ class Collection extends Component {
                 <View style={{ flex: 1, justifyContent: 'center' }}>
                     <Text style={textStyle}>HOT GAMING GEAR</Text>
                 </View>
-                <TouchableOpacity style={{ flex: 4 }} >
+                <TouchableOpacity style={{ flex: 4 }} onPress={this.gotoListProduct.bind(this)}>
                     <Image source={bannerImage} style={imageStyle} />
                 </TouchableOpacity>
             </View >

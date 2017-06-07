@@ -12,7 +12,7 @@ class HomeView extends Component {
         const { types, topProducts } = this.props;
         return (
             <ScrollView style={{ backgroundColor: '#dbdbd8', flex: 1 }}>
-                <Collection />
+                <Collection navigator={this.props.navigator} types={types} />
                 <Category navigator={this.props.navigator} types={types} topProducts={topProducts} />
                 <TopProduct navigator={this.props.navigator} types={types} topProducts={topProducts} />
             </ScrollView>
