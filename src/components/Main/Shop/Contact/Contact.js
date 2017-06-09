@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import map from '../../../../media/appIcon/map.png';
+
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 import phoneIcon from '../../../../media/appIcon/phone.png';
 import mailIcon from '../../../../media/appIcon/mail.png';
@@ -16,26 +17,35 @@ class Contact extends Component {
         return (
             <View style={wrapper}>
                 <View style={mapContainer}>
-                    <Image
-                        style={{ flex: 1, alignSelf: 'stretch', width: undefined }} source={map}
-                    />
-                </View>
-                <View style={infoContainer}>
-                    <View style={rowInfoContainer}>
-                        <Image source={locationIcon} style={imageStyle} />
-                        <Text style={infoText}>90 Le Thi Rieng/ Ben Thanh Dist</Text>
+                    <View style={styles.container}>
+                        <MapView
+                            style={{ width: width - 20, height: 200 }}
+                            provider={PROVIDER_GOOGLE}
+                            initialRegion={{
+                                latitude: 20.993776,
+                                longitude: 105.811417,
+                                latitudeDelta: 0.021,
+                                longitudeDelta: 0.021
+                            }}
+                        />
                     </View>
-                    <View style={rowInfoContainer}>
-                        <Image source={phoneIcon} style={imageStyle} />
-                        <Text style={infoText}>(+84) 01694472176</Text>
-                    </View>
-                    <View style={rowInfoContainer}>
-                        <Image source={mailIcon} style={imageStyle} />
-                        <Text style={infoText}>khoaphamtraining@gmail.com</Text>
-                    </View>
-                    <View style={[rowInfoContainer, { borderBottomWidth: 0 }]}>
-                        <Image source={messageIcon} style={imageStyle} />
-                        <Text style={infoText}>(+84) 09877067707</Text>
+                    <View style={infoContainer}>
+                        <View style={rowInfoContainer}>
+                            <Image source={locationIcon} style={imageStyle} />
+                            <Text style={infoText}>90 Le Thi Rieng/ Ben Thanh Dist</Text>
+                        </View>
+                        <View style={rowInfoContainer}>
+                            <Image source={phoneIcon} style={imageStyle} />
+                            <Text style={infoText}>(+84) 01694472176</Text>
+                        </View>
+                        <View style={rowInfoContainer}>
+                            <Image source={mailIcon} style={imageStyle} />
+                            <Text style={infoText}>khoaphamtraining@gmail.com</Text>
+                        </View>
+                        <View style={[rowInfoContainer, { borderBottomWidth: 0 }]}>
+                            <Image source={messageIcon} style={imageStyle} />
+                            <Text style={infoText}>(+84) 09877067707</Text>
+                        </View>
                     </View>
                 </View>
             </View>
